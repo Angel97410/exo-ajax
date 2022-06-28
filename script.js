@@ -13,7 +13,7 @@ function showUsers() {
         let image = ""
         // pour chaque element avec intitulé first_name contenu dans object
         object.data.forEach(element => {
-          myHtml += '<div class="card col-6" style="width: 18rem; display: flex;" ><img src= ' + element.avatar + ' class="card-img-top"> <h5>' + element.first_name + ' ' + element.last_name + '</h5><p>'+element.email+'</p></div>'
+          myHtml += '<div class="card col-6" style="width: 18rem; display: flex;" ><img src= ' + element.avatar + '> <h5>' + element.first_name + ' ' + element.last_name + '</h5><p>'+element.email+'</p></div>'
           console.log(element.avatar)
         });
 

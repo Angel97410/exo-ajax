@@ -16,3 +16,6 @@ body {
   --bs-card-bg: #ffff0011;
   box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
 }
+img{
+  border-radius: 50%;
+}

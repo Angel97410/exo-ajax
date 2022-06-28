@@ -5,12 +5,12 @@ function showUsers() {
 
   xhr.addEventListener('readystatechange', function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      if(xhr.status === 200){
-        
+      if (xhr.status === 200) {
+        document.getElementById('allUtilisateurs').innerText = xhr.response
         console.log("Response = " + xhr.response);
-      }else if (xhr.status === 400){
+      } else if (xhr.status === 400) {
         alert("Impossible de trouver l'url de la requête AJAX")
-      }else{
+      } else {
         alert("Une erreur est survenue")
       }
     };

@@ -1,7 +1,7 @@
 function showUsers() {
   // initialisation requête
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://reqres.in/api/users?page=2');
+  xhr.open('GET', 'https://reqres.in/api/users?page=1');
 
   xhr.addEventListener('readystatechange', function () {
     if (xhr.readyState === 4 && xhr.status === 200) {

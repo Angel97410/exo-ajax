@@ -1,16 +1,24 @@
-// --------------------------------------FONCTION RECUPERE LE NUMERO DE PAGE----------------------------------------------
+// ----------------------------------------------------- LOADER-------------------------------------------------------------------
 
-function showUsers() {
-  const nbPage = document.getElementById('numberPageUsers').value
-  getUsers(nbPage)
-};
+const loader = '<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>'
+
+// --------------------------------------FONCTION RECUPERE LE NUMERO DE PAGE----------------------------------------------
+// -----------FONCTION JAMAIS APPELE------------------
+
+// function showUsers() {
+//   const nbPage = document.getElementById('numberPageUsers').value
+//   getUsers(nbPage)
+// };
 
 // ---------------------------------------------------FONCTION AFFICHAGE PAGINATION -----------------------------------------------------
 
 function getUsers(nbPage) {
+  // mise en route loader pendant chargement
+  document.getElementById('allUtilisateurs').innerHTML = loader
+  document.getElementById('pagination').innerHTML = ''
   // initialisation requête
   const xhr = new XMLHttpRequest();
-  const url = "https://reqres.in/api/users?page=" + nbPage
+  const url = "https://reqres.in/api/users?delay=3&page=" + nbPage
   xhr.open('GET', url);
 
   xhr.addEventListener('readystatechange', function () {
@@ -41,5 +49,23 @@ function setUsersInPage(listUsers){
   });
 
   document.getElementById('allUtilisateurs').innerHTML = myHtml
-  console.log("Response = " + xhr.response);
+  
+  // Création de la pagination 
+  let nbPage = listUsers.total_pages
+  let currentPage = listUsers.page
+
+  let htmlPagination = ""
+  for (i=1 ; i <= nbPage; i++){
+    if (i == currentPage){
+      htmlPagination += '<button class="btn active" disabled>'+i+'</button>'
+    }else{
+      htmlPagination += '<button class="btn" onclick= "getUsers('+i+')">'+i+'</button>'
+    }
+  }
+  document.getElementById('pagination').innerHTML = htmlPagination
 }
+
+// PERMET D'OUVRIR LA PAGE DIRECTEMENT SUR PAGE 1
+document.addEventListener("DOMContentLoaded", function() {
+  getUsers(1)
+});

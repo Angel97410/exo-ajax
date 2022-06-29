@@ -45,7 +45,7 @@ function setUsersInPage(listUsers) {
   let myHtml = ""
   // pour chaque element avec intitulé first_name contenu dans object
   listUsers.data.forEach(element => {
-    myHtml += '<div class="card col-6" style="width: 18rem; display: flex;" ><img src= ' + element.avatar + '> <h5>' + element.first_name + ' ' + element.last_name + '</h5><p>' + element.email + '</p></div>'
+    myHtml += '<div class="card col-6" style="width: 18rem; display: flex;" ><img src= ' + element.avatar + '> <h5>' + element.first_name + ' ' + element.last_name + '</h5><p>' + element.email + '</p><button class="btn" onclick="deleteUser()" id="deleteU">Supprimer un utilisateur</button><button class="btn" onclick="editUser()">Modifier l\'utilisateur</button></div>'
   });
 
   document.getElementById('allUtilisateurs').innerHTML = myHtml
@@ -113,8 +113,8 @@ function createUserApiFetch() {
   const headers = new Headers();
   headers.append("Content-Type", "application/json")
   const body = JSON.stringify({
-    name: 'David',
-    job: 'Marty',
+    name: document.getElementById('Nom').value,
+    job: document.getElementById('Job').value,
   }); //JSON.stringify pour convertir en objet JSON et éviter le risque des caractères spéciaux.
 
   const init = {
@@ -129,6 +129,54 @@ function createUserApiFetch() {
     })
     .then(response => {
       alert(response)
+      console.log(response)
+    })
+    .catch(error => alert("Erreur : " + error));
+}
+
+
+// ----------------------------------------------FONCTION SUPPRESION UTILISATEUR AVEC API FETCH-------------------------------------------------------
+function deleteUser() {
+  const headers = new Headers();
+
+  const init = {
+    method: 'DELETE',
+    headers: headers,
+  };
+
+  fetch('https://reqres.in/api/users/2', init)
+    .then(response => {
+      if (response.status == 204) {
+        alert("L'utilisateur a bien été supprimé")
+      } else {
+        alert("Impossible de supprimer l'utilisateur")
+      }
+    })
+    .catch(error => alert("Erreur : " + error));
+}
+
+// ----------------------------------------------FONCTION MODIFICATION UTILISATEUR AVEC API FETCH-------------------------------------------------------
+function editUser() {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json")
+  const body = JSON.stringify({
+    name: document.getElementById('Nom').value,
+    job: document.getElementById('Job').value,
+  }); //JSON.stringify pour convertir en objet JSON et éviter le risque des caractères spéciaux.
+
+  const init = {
+    method: 'PUT',
+    headers: headers,
+    body: body
+  };
+
+  fetch('https://reqres.in/api/users/2', init)
+    .then(response => {
+      return response.json();
+    })
+    .then(response => {
+      alert(response)
+      console.log(response)
     })
     .catch(error => alert("Erreur : " + error));
 }

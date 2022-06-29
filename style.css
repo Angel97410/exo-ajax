@@ -34,10 +34,14 @@ img {
 
 .myPagination .btn {
   padding: 15px;
-  background-color: rgba(234, 135, 59, 0.516);
+  background-color: #ea873b84;
   color: whitesmoke;
 }
 
+.btn{
+  background-color: #ea873b84;
+  margin-bottom: 15px;
+}
 
 
 /* DEBUT LOADER */

@@ -128,7 +128,7 @@ function createUserApiFetch() {
       return response.json();
     })
     .then(response => {
-      // console.log(response)
+      alert(response)
     })
     .catch(error => alert("Erreur : " + error));
 }

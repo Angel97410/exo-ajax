@@ -45,9 +45,8 @@ function setUsersInPage(listUsers) {
   let myHtml = ""
   // pour chaque element avec intitulé first_name contenu dans object
   listUsers.data.forEach(element => {
-    myHtml += '<div class="card col-6" id=' + element.id + ' style="width: 18rem; display: flex;" ><img src= ' + element.avatar + '> <h5>' + element.first_name + ' ' + element.last_name + '</h5><p>' + element.email + '</p><button class="btn" onclick="deleteUser()" id="deleteU'+element.id+'" ">Supprimer un utilisateur</button><button class="btn" onclick="editUser()">Modifier l\'utilisateur</button></div>'
-    console.log(element.id)
-    return idCard = element.id
+    myHtml += '<div class="card col-6" id=' + element.id + ' style="width: 18rem; display: flex;" ><img src= ' + element.avatar + '> <h5>' + element.first_name + ' ' + element.last_name + '</h5><p>' + element.email + '</p><button class="btn" onclick="deleteUser()" id="deleteU">Supprimer un utilisateur</button><button class="btn" onclick="editUser()">Modifier l\'utilisateur</button></div>'
+
   });
 
   document.getElementById('allUtilisateurs').innerHTML = myHtml
@@ -65,7 +64,7 @@ function setUsersInPage(listUsers) {
     }
   }
   document.getElementById('pagination').innerHTML = htmlPagination
-  return idCard
+
 }
 
 // PERMET D'OUVRIR LA PAGE DIRECTEMENT SUR PAGE 1
@@ -147,13 +146,16 @@ function deleteUser() {
     headers: headers,
   };
 
-  this.parentNode.removeChild(this.parentNode);
 
   fetch('https://reqres.in/api/users/2', init)
     .then(response => {
       if (response.status == 204) {
 
-        
+        $('button#deleteU').on('click', function (events) {
+          $(this).parents('.card').remove();
+          return false;
+        });
+
 
         alert("L'utilisateur a bien été supprimé")
       } else {
